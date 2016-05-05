@@ -5,36 +5,41 @@
       .module('tz')
       .controller('TimeZoneController', function($scope, _, timezoneFactory, timezoneService, Zone) {
         $scope.selectTimezone = '';
-        $scope.selectCountry = '';
+        $scope.selectCity = '';
         $scope.editMode = '';
         $scope.countries = {};
-        $scope.timezones = timezoneService.get();
-        $scope.timeZoneList = timezoneFactory.getTimezone();
+        $scope.timezones = timezoneService.getList();
+        $scope.timezonesUniqueOffset = timezoneFactory.getTimezonesUniqueOffset();
 
         $scope.prepareCityList = function() {
-          $scope.countries = timezoneFactory.get($scope.selectTimezone);
+          $scope.timezoneCities = timezoneFactory.getTimezonesCityByOffset($scope.selectTimezone);
         };
 
         $scope.deleteTimezone = function($index) {
           if (confirm('Are you sure ?')) {
-            timezoneService.delete($index);
+            timezoneService.deleteTimezone($index);
           }
         };
+        
         $scope.editTimezone = function(timezone) {
           $scope.editMode = timezone;
+          $scope.timezoneCities = timezoneFactory.getTimezonesCityByOffset(timezone.timezone);
           $scope.selectTimezone = timezone.timezone;
-          $scope.selectCountry = timezone.name;
+          $scope.selectCity = timezone.name;
         };
+        
         $scope.saveEdit = function(timezone) {
-          timezone.setData({name: $scope.selectCountry, timezone: $scope.selectTimezone});
-          $scope.selectTimezone = $scope.selectCountry = $scope.editMode = '';
+          timezone.setData({name: $scope.selectCity, timezone: $scope.selectTimezone});
+          $scope.selectTimezone = $scope.selectCity = $scope.timezoneCities = $scope.editMode = '';
         };
+        
         $scope.addToList = function() {
-          timezoneService.add(new Zone({name: $scope.selectCountry, timezone: $scope.selectTimezone}));
-          $scope.selectTimezone = $scope.selectCountry = '';
+          timezoneService.addTimezone(new Zone({name: $scope.selectCity, timezone: $scope.selectTimezone}));
+          $scope.selectTimezone = $scope.selectCity = $scope.timezoneCities = '';
         };
+        
         $scope.validate = function() {
-          return !($scope.selectTimezone && $scope.selectCountry);
+          return !($scope.selectTimezone && $scope.selectCity);
         };
       });
 })();

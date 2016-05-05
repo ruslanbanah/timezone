@@ -7,9 +7,9 @@
         var timezone = [];
 
         return {
-          add: addTimezone,
-          get: getTimezone,
-          delete: deleteTimezone
+          addTimezone: addTimezone,
+          getList: getTimezone,
+          deleteTimezone: deleteTimezone
         };
 
         function addTimezone(timezoneModel) {

@@ -5,7 +5,7 @@
       .module('tz')
       .factory('timezoneFactory', ['_', 'moment', function(_, moment) {
         return {
-          get: function(timezone) {
+          getTimezonesCityByOffset: function(timezone) {
             return timezone ? _.filter(moment.tz.names(), function(zoneName) {
               var tz = moment.tz(zoneName);
               return timezone == tz.utcOffset();
@@ -16,7 +16,7 @@
               }
             }) : [];
           },
-          getTimezone: function() {
+          getTimezonesUniqueOffset: function() {
             var timezoneMap = {};
             _.forEach(moment.tz.names(), function(zoneName) {
               var tz = moment.tz(zoneName);
