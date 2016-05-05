@@ -1,7 +1,7 @@
 /**
  * Created by ruslanbanah on 4/26/16.
  */
-(function () {
+(function() {
   'use strict';
 
   angular

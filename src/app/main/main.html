@@ -13,14 +13,20 @@
                     <option ng-repeat="country in countries" value="{{country.id}}">{{country.name}}</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-success btn-lg" ng-click="addToList()" ng-disabled="validate()">Add time zone</button>
+            <button type="submit" class="btn btn-success btn-lg" ng-click="saveEdit(editMode)" ng-disabled="validate()"
+                    ng-show="editMode">Save
+            </button>
+            <button type="submit" class="btn btn-success btn-lg" ng-click="addToList()" ng-disabled="validate()"
+                    ng-hide="editMode">Add time zone
+            </button>
         </form>
 
 
         <form>
             <div class="form-group">
                 <label for="search">Search</label>
-                <input id="search" type="text" class="form-control" placeholder="Search for..." ng-model="searchText" ng-disabled="!timezones.length">
+                <input id="search" type="text" class="form-control" placeholder="Search for..." ng-model="searchText"
+                       ng-disabled="!timezones.length">
             </div>
         </form>
         <div class="row">

@@ -6,22 +6,22 @@
 
   angular
       .module('tz')
-      .factory('timezoneFactory', ['_', 'moment', function (_, moment) {
+      .factory('timezoneFactory', ['_', 'moment', function(_, moment) {
         return {
-          get: function (timezone) {
-            return timezone ? _.filter(moment.tz.names(), function (zoneName) {
+          get: function(timezone) {
+            return timezone ? _.filter(moment.tz.names(), function(zoneName) {
               var tz = moment.tz(zoneName);
               return timezone == tz.utcOffset();
-            }).map(function (zoneName) {
+            }).map(function(zoneName) {
               return {
                 id: zoneName,
                 name: zoneName.replace(/_/g, ' ')
               }
-            }): [];
+            }) : [];
           },
           getTimezone: function() {
             var timezoneMap = {};
-            _.forEach(moment.tz.names(), function (zoneName) {
+            _.forEach(moment.tz.names(), function(zoneName) {
               var tz = moment.tz(zoneName);
               timezoneMap[tz.utcOffset()] = 'UTC' + tz.format('Z');
             });
