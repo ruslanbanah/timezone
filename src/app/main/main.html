@@ -1,30 +1,40 @@
 <div ng-controller="TimeZoneController">
     <div class="container">
-        <div class="jumbotron text-center">
-            <select class="selectpicker" ng-model="selectTimezone">
-                <option ng-repeat="(nOffset, timeZone) in timeZoneList" value="{{nOffset}}">{{timeZone}}</option>
-            </select>
-        </div>
+        <form>
+            <div class="form-group">
+                <label for="timezone">Time Zone</label>
+                <select id="timezone" class="form-control" placeholder="Search" ng-model="selectTimezone">
+                    <option ng-repeat="(nOffset, timeZone) in timeZoneList" value="{{nOffset}}">{{timeZone}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="citiname">City name</label>
+                <select id="citiname" class="form-control" ng-model="selectCountry" ng-disabled="!countries.length">
+                    <option ng-repeat="country in countries" value="{{country.id}}">{{country.name}}</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success btn-lg" ng-click="addToList()" ng-disabled="validate()">Add time zone</button>
+        </form>
 
-        <div class="jumbotron text-center">
-            <select class="selectpicker" ng-model="selectCountry" ng-show="countries.length">
-                <option ng-repeat="country in countries" value="{{country.id}}">{{country.name}}</option>
-            </select>
-        </div>
-        {{selectTimezone}}, {{selectCountry}}
-        <button ng-click="addToList()">Add</button>
-    </div>
-    <div class="container">
-        <div>
-            <label>Search: </label>
-            <input type="search" ng-model="searchText">
-            <ul>
-                <li ng-repeat="timezone in timezones | filter:searchText">
-                    {{timezone.name}}
-                    <button ng-click="deleteTimezone($index)">Delete</button>
-                    <button ng-click="editTimezone(timezone)">Edit</button>
-                </li>
-            </ul>
+
+        <form>
+            <div class="form-group">
+                <label for="search">Search</label>
+                <input id="search" type="text" class="form-control" placeholder="Search for..." ng-model="searchText" ng-disabled="!timezones.length">
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-sm-6 col-md-4" ng-repeat="timezone in timezones | filter:searchText">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <p>Current local time: <span current-time-zone="{{ timezone.name }}"></span></p>
+                        <p>Time zone: {{ timezone.getUTC() }}</p>
+                        <p>Location name: {{ timezone.name }}</p>
+                        <button class="btn btn-default btn-lg" ng-click="editTimezone(timezone)">Edit</button>
+                        <button class="btn btn-danger btn-lg" ng-click="deleteTimezone($index)">Delete</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

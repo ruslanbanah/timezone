@@ -15,7 +15,6 @@
 
         function addTimezone(timezoneModel) {
           timezone.push(timezoneModel);
-          console.log('Add : ', timezoneModel, ' Total: ', timezone);
         }
 
         function getTimezone() {

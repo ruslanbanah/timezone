@@ -18,13 +18,16 @@
 
         $scope.deleteTimezone = function($index) {
           timezoneService.delete($index);
-          console.log('Delete: ',$index);
         };
         $scope.editTimezone = function(timezone) {
           console.log('Edit: ',timezone);
         };
         $scope.addToList = function() {
           timezoneService.add(new Zone({name: $scope.selectCountry, timezone: $scope.selectTimezone}));
-        }
+          $scope.selectTimezone = $scope.selectCountry = '';
+        };
+        $scope.validate = function(){
+          return !($scope.selectTimezone && $scope.selectCountry);
+        };
       });
 })();
