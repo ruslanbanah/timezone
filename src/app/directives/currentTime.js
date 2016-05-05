@@ -1,6 +1,3 @@
-/**
- * Created by boom on 05.05.16.
- */
 (function() {
   'use strict';
 

@@ -1,12 +1,9 @@
-/**
- * Created by ruslanbanah on 4/26/16.
- */
 (function() {
   'use strict';
 
   angular
       .module('tz')
-      .controller('TimeZoneController', function($scope, _, timezoneFactory, timezoneService, Zone, $uibModal) {
+      .controller('TimeZoneController', function($scope, _, timezoneFactory, timezoneService, Zone) {
         $scope.selectTimezone = '';
         $scope.selectCountry = '';
         $scope.editMode = '';
@@ -14,9 +11,9 @@
         $scope.timezones = timezoneService.get();
         $scope.timeZoneList = timezoneFactory.getTimezone();
 
-        $scope.$watch('selectTimezone', function() {
+        $scope.prepareCityList = function() {
           $scope.countries = timezoneFactory.get($scope.selectTimezone);
-        });
+        };
 
         $scope.deleteTimezone = function($index) {
           if (confirm('Are you sure ?')) {

@@ -3,7 +3,7 @@
         <form>
             <div class="form-group">
                 <label for="timezone">Time Zone</label>
-                <select id="timezone" class="form-control" placeholder="Search" ng-model="selectTimezone">
+                <select id="timezone" class="form-control" placeholder="Search" ng-model="selectTimezone" ng-change="prepareCityList()">
                     <option ng-repeat="(nOffset, timeZone) in timeZoneList" value="{{nOffset}}">{{timeZone}}</option>
                 </select>
             </div>
