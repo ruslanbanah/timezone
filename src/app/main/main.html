@@ -1,0 +1,30 @@
+<div ng-controller="TimeZoneController">
+    <div class="container">
+        <div class="jumbotron text-center">
+            <select class="selectpicker" ng-model="selectTimezone">
+                <option ng-repeat="(nOffset, timeZone) in timeZoneList" value="{{nOffset}}">{{timeZone}}</option>
+            </select>
+        </div>
+
+        <div class="jumbotron text-center">
+            <select class="selectpicker" ng-model="selectCountry" ng-show="countries.length">
+                <option ng-repeat="country in countries" value="{{country.id}}">{{country.name}}</option>
+            </select>
+        </div>
+        {{selectTimezone}}, {{selectCountry}}
+        <button ng-click="addToList()">Add</button>
+    </div>
+    <div class="container">
+        <div>
+            <label>Search: </label>
+            <input type="search" ng-model="searchText">
+            <ul>
+                <li ng-repeat="timezone in timezones | filter:searchText">
+                    {{timezone.name}}
+                    <button ng-click="deleteTimezone($index)">Delete</button>
+                    <button ng-click="editTimezone(timezone)">Edit</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
